@@ -13,8 +13,6 @@ from sendgrid.helpers.mail import (Mail, Attachment, FileContent, FileName, File
 from dotenv import load_dotenv
 
 
-
-
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
@@ -71,7 +69,7 @@ combined.to_csv('updated_posts.csv')
 
 #mail csv file
 load_dotenv()
-API_KEY=os.getenv('API_KEY')
+API_KEY=os.getenv('API_KEYS')
 ADDRESS=os.getenv('ADDRESS')
 
 message = Mail(
