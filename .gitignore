@@ -11,6 +11,7 @@
 .env
 .env.test
 .env.production
+**/.env
 
 # Icon must end with two \r
 Icon
