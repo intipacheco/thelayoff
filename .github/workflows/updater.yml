@@ -35,7 +35,7 @@ jobs:
     - name: Install a new Chromium
       run: sudo apt install -y chromium-browser 
     - name: Install all necessary packages
-      run: pip install pandas requests beautifulsoup4 html5lib sendgrid base64 webdriver-manager selenium
+      run: pip install pandas requests beautifulsoup4 html5lib sendgrid webdriver-manager selenium
     - name: Scraping today's data
       run: python scraper.py
     - name: Commit and push any changes
