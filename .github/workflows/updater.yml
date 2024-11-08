@@ -38,8 +38,8 @@ jobs:
       run: pip install pandas requests beautifulsoup4 python-dotenv html5lib sendgrid webdriver-manager selenium
     - name: Scraping today's data
       env:
-        SG_KEY: ${{SG_KEY}}
-        ADDRESS: ${{ADDRESS}}
+        SG_KEY: ${{ variables.SG_KEY }}
+        ADDRESS: ${{ variables.ADDRESS }}
       run: python scraper.py
     - name: Commit and push any changes
       run: |-
