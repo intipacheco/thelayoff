@@ -41,7 +41,7 @@ driver.get(url)
 
 doc = BeautifulSoup(driver.page_source, 'html.parser')
 
-posts = doc.find_all(class_='posts')
+posts = doc.find_all(class_='topic-wrap')
 
 data_all = []
 for post in posts:
