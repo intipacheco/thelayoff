@@ -72,7 +72,7 @@ combined.to_csv('updated_posts.csv')
 
 #mail csv file
 load_dotenv()
-API_KEY=os.getenv('SG_KEY')
+KEY=os.getenv('SG_KEY')
 ADDRESS=os.getenv('ADDRESS')
 
 message = Mail(
@@ -95,7 +95,7 @@ attachedFile = Attachment(
 message.attachment = attachedFile
 
 try:
-    sg = SendGridAPIClient(API_KEY)
+    sg = SendGridAPIClient(KEY)
     response = sg.send(message)
     print(response.status_code)
     print(response.body)
