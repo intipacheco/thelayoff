@@ -72,7 +72,7 @@ combined.to_csv('updated_posts.csv')
 
 #mail csv file
 load_dotenv()
-API_KEY=os.getenv('API_KEYS')
+API_KEY=os.getenv('SG_KEY')
 ADDRESS=os.getenv('ADDRESS')
 
 message = Mail(
