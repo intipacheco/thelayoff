@@ -78,8 +78,8 @@ ADDRESS=os.getenv('ADDRESS')
 message = Mail(
     from_email=ADDRESS,
     to_emails=ADDRESS,
-    subject='test email api-2',
-    html_content='my head will explode')
+    subject='layoff update',
+    html_content='someone is saying something new')
 
 with open('updated_posts.csv', 'rb') as f:
     data = f.read()
