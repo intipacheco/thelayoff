@@ -76,8 +76,8 @@ combined.to_csv('updated_posts.csv')
 #ADDRESS = os.getenv('ADDRESS')
 
 message = Mail(
-    from_email=EMAIL,
-    to_emails=EMAIL,
+    from_email=os.environ.get(EMAIL),
+    to_emails=os.environ.get(EMAIL),
     subject='layoff update',
     html_content='someone is saying something new')
 
@@ -95,7 +95,7 @@ attachedFile = Attachment(
 message.attachment = attachedFile
 
 try:
-    sg = SendGridAPIClient(API_KEY)
+    sg = SendGridAPIClient(os.environ.get(API_KEY))
     response = sg.send(message)
     print(response.status_code)
     print(response.body)
