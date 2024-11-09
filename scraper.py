@@ -71,9 +71,9 @@ combined.drop_duplicates(subset=['link','date'], inplace=True)
 combined.to_csv('updated_posts.csv')
 
 #mail csv file
-load_dotenv()
-API_KEY = os.getenv('SG_KEY')
-ADDRESS = os.getenv('ADDRESS')
+#load_dotenv()
+#API_KEY = os.getenv('SG_KEY')
+#ADDRESS = os.getenv('ADDRESS')
 
 message = Mail(
     from_email=ADDRESS,
