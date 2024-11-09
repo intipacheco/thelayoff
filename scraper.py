@@ -76,8 +76,8 @@ combined.to_csv('updated_posts.csv')
 #ADDRESS = os.getenv('ADDRESS')
 
 message = Mail(
-    from_email=ADDRESS,
-    to_emails=ADDRESS,
+    from_email=EMAIL,
+    to_emails=EMAIL,
     subject='layoff update',
     html_content='someone is saying something new')
 
