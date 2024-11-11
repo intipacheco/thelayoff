@@ -48,7 +48,6 @@ def scroll_down():
         last_height = new_height
 
 
-
 def send_email():
     message = Mail(
         from_email=os.environ.get('EMAIL'),
@@ -89,7 +88,11 @@ scroll_down()
 
 doc = BeautifulSoup(driver.page_source, 'html.parser')
 
+print(doc)
+
 posts = doc.find_all(class_='topic-wrap')
+
+print(posts)
 
 data_all = []
 for post in posts:
