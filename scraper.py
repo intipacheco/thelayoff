@@ -33,6 +33,36 @@ for option in options:
 
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+def send_email():
+    message = Mail(
+        from_email=os.environ.get('EMAIL'),
+        to_emails=os.environ.get('EMAIL'),
+        subject='layoff update',
+        html_content='someone is saying something new') 
+
+    with open('updated_posts.csv', 'rb') as f:
+        data = f.read()
+        f.close()
+    encoded_file = base64.b64encode(data).decode()  
+
+    attachedFile = Attachment(
+        FileContent(encoded_file),
+        FileName('updated_posts.csv'),
+        FileType('text/csv'),
+        Disposition('attachment')
+    )
+    message.attachment = attachedFile   
+
+    try:
+        sg = SendGridAPIClient(os.environ.get('API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e)
+
+
 url = "https://www.thelayoff.com/nike"
 
 wait = WebDriverWait(driver, 10)
@@ -60,45 +90,33 @@ df = pd.DataFrame(data_all)
 df['scrape_date'] = datetime.datetime.now().strftime("%Y-%m-%d_%H.%M.%S")
 
 try:
-    existing_df = pd.read_csv("recent_posts.csv")
+    existing_df = pd.read_csv("updated_posts.csv")
 except:
     existing_df = pd.DataFrame([])
 
 combined = pd.concat([df, existing_df], ignore_index=True)
 
-combined.drop_duplicates(subset=['link','date'], inplace=True)
+combined = pd.concat([df, existing_df], ignore_index=True).drop_duplicates(keep='first', subset=['link'])
 
-combined.to_csv('updated_posts.csv')
+new_df = combined
+
+new_df.to_csv('updated_posts.csv')
+
+if len(combined) > len(existing_df):
+    send_email()
+else:
+    print('nothing new')
+
+
+
+
+#combined.drop_duplicates(subset=['link','date'], inplace=True)
+
+#combined.to_csv('updated_posts.csv')
 
 #mail csv file
 #load_dotenv()
 #API_KEY = os.getenv('SG_KEY')
 #ADDRESS = os.getenv('ADDRESS')
 
-message = Mail(
-    from_email=os.environ.get('EMAIL'),
-    to_emails=os.environ.get('EMAIL'),
-    subject='layoff update',
-    html_content='someone is saying something new')
 
-with open('updated_posts.csv', 'rb') as f:
-    data = f.read()
-    f.close()
-encoded_file = base64.b64encode(data).decode()
-
-attachedFile = Attachment(
-    FileContent(encoded_file),
-    FileName('updated_posts.csv'),
-    FileType('text/csv'),
-    Disposition('attachment')
-)
-message.attachment = attachedFile
-
-try:
-    sg = SendGridAPIClient(os.environ.get('API_KEY'))
-    response = sg.send(message)
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
-except Exception as e:
-    print(e)
