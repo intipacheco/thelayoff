@@ -117,9 +117,7 @@ combined = pd.concat([df, existing_df], ignore_index=True).drop_duplicates(keep=
 
 send_it = len(combined) > len(existing_df)
 
-new_df = combined
-
-new_df.to_csv('updated_posts.csv', index=False)
+combined.to_csv('updated_posts.csv', index=False)
 
 if send_it:
     send_email()
