@@ -37,7 +37,9 @@ for option in options:
 
 #driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-driver = webdriver.Chrome(options = chrome_options)
+#driver = uc.webdriver.Chrome(options = chrome_options)
+
+driver = uc.Chrome(options=chrome_options)
 
 def scroll_down():
     last_height = driver.execute_script("return document.body.scrollHeight")
@@ -115,6 +117,8 @@ df = pd.DataFrame(data_all)
 df['scrape_date'] = datetime.datetime.now().strftime("%Y-%m-%d_%H.%M.%S")
 
 print(df.head(10))
+
+driver.quit()
 
 try:
     existing_df = pd.read_csv("recent_posts.csv")
