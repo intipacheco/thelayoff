@@ -6,20 +6,21 @@ import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import pandas as pd
-from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
+#from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+import chromedriver_autoinstaller #new
 from selenium.webdriver.support.ui import WebDriverWait
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import (Mail, Attachment, FileContent, FileName, FileType, Disposition)
 from dotenv import load_dotenv
 
+chromedriver_autoinstaller.install()
+#chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
-chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
-
-chrome_options = Options()
+chrome_options = webdriver.ChromeOptions()    
+#chrome_options = Options()
 options = [
     "--headless",
     "--disable-gpu",
@@ -32,7 +33,9 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+#driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+driver = webdriver.Chrome(options = chrome_options)
 
 def scroll_down():
     last_height = driver.execute_script("return document.body.scrollHeight")
