@@ -98,13 +98,15 @@ except:
 
 combined = pd.concat([df, existing_df], ignore_index=True).drop_duplicates(keep='first', subset=['link'])
 
+send_it = len(combined) > len(existing_df)
+
 new_df = combined
 
 new_df.to_csv('updated_posts.csv')
 
-if len(combined) > len(existing_df):
+if send_it:
     send_email()
-    print('just sent you an email')
+    print('incoming email')
 else:
     print('nothing new')
 
