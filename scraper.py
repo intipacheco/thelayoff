@@ -2,6 +2,7 @@ import re
 import datetime
 import base64
 import os
+import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -32,6 +33,16 @@ for option in options:
     chrome_options.add_argument(option)
 
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+def scroll_down():
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    while True:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(5)
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
 
 def send_email():
     message = Mail(
@@ -68,6 +79,8 @@ url = "https://www.thelayoff.com/nike"
 wait = WebDriverWait(driver, 10)
 
 driver.get(url)
+
+scroll_down()
 
 doc = BeautifulSoup(driver.page_source, 'html.parser')
 
