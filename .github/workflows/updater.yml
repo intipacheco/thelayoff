@@ -31,7 +31,7 @@ jobs:
     - name: Remove Chrome
       run: sudo apt purge google-chrome-stable
     - name: Install all necessary packages
-      run: pip install chromedriver-autoinstaller pandas requests beautifulsoup4 python-dotenv html5lib sendgrid webdriver-manager selenium
+      run: pip install chromedriver-autoinstaller undetected-chromedriver pandas requests beautifulsoup4 python-dotenv html5lib sendgrid webdriver-manager selenium
     - name: Scraping today's data
       env:
         API_KEY: ${{ secrets.API_KEY }}
