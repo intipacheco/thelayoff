@@ -44,6 +44,8 @@ def scroll_down():
             break
         last_height = new_height
 
+
+
 def send_email():
     message = Mail(
         from_email=os.environ.get('EMAIL'),
@@ -102,10 +104,12 @@ df = pd.DataFrame(data_all)
 
 df['scrape_date'] = datetime.datetime.now().strftime("%Y-%m-%d_%H.%M.%S")
 
+print(df.head(10))
+
 try:
     existing_df = pd.read_csv("updated_posts.csv")
 except:
-    existing_df = pd.DataFrame([])
+    existing_df = pd.DataFrame()
 
 #combined = pd.concat([df, existing_df], ignore_index=True)
 
@@ -115,7 +119,7 @@ send_it = len(combined) > len(existing_df)
 
 new_df = combined
 
-new_df.to_csv('updated_posts.csv')
+new_df.to_csv('updated_posts.csv', index=False)
 
 if send_it:
     send_email()
