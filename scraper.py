@@ -15,6 +15,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import (Mail, Attachment, FileContent, FileName, FileType, Disposition)
 from dotenv import load_dotenv
+import undetected_chromedriver as uc
+
 
 chromedriver_autoinstaller.install()
 #chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
