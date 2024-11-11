@@ -82,7 +82,7 @@ def send_email():
         print(e)
 
 
-url = "https://www.thelayoff.com/nike"
+url = "https://www.thelayoff.com/adidas"
 
 wait = WebDriverWait(driver, 10)
 
