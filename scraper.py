@@ -56,14 +56,14 @@ def send_email():
         subject='layoff update',
         html_content='someone is saying something new') 
 
-    with open('updated_posts.csv', 'rb') as f:
-        data = f.read()
+    with open('recent_posts.csv', 'rb') as f:
+        data1 = f.read()
         f.close()
-    encoded_file = base64.b64encode(data).decode()  
+    encoded_file = base64.b64encode(data1).decode()  
 
     attachedFile = Attachment(
         FileContent(encoded_file),
-        FileName('updated_posts.csv'),
+        FileName('recent_posts.csv'),
         FileType('text/csv'),
         Disposition('attachment')
     )
@@ -112,7 +112,7 @@ df['scrape_date'] = datetime.datetime.now().strftime("%Y-%m-%d_%H.%M.%S")
 print(df.head(10))
 
 try:
-    existing_df = pd.read_csv("updated_posts.csv")
+    existing_df = pd.read_csv("recent_posts.csv")
 except:
     existing_df = pd.DataFrame()
 
@@ -122,7 +122,7 @@ combined = pd.concat([df, existing_df], ignore_index=True).drop_duplicates(keep=
 
 send_it = len(combined) > len(existing_df)
 
-combined.to_csv('updated_posts.csv', index=False)
+combined.to_csv('recent_posts.csv', index=False)
 
 if send_it:
     send_email()
