@@ -99,6 +99,8 @@ for post in posts:
     data['date'] = post.find(class_='post-timeago')['data-datetime']
     data['link'] = 'https://www.thelayoff.com' + post.find(class_='thread-link')['href']
     data_all.append(data)
+    print(data)
+    print('-----')
 
 df = pd.DataFrame(data_all)
 
